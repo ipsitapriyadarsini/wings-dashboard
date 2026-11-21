@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: wings-dashboard-backend
+  profiles:
+    active: demo          # demo = H2 in-memory + generated sample data. Use "prod" for PostgreSQL.
+  datasource:
+    url: jdbc:h2:mem:wings;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.batch_size: 100
+      hibernate.order_inserts: true
+  mvc:
+    format:
+      date: iso
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: always
+
+wings:
+  timezone: Asia/Kolkata
+  # Weekly score publication: Monday 02:00 for the week that just ended.
+  score-job-cron: "0 0 2 * * MON"
+  # Admin chatbot endpoint used by "Summarize this page". Leave empty to disable the call.
+  chatbot:
+    url: ""
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
